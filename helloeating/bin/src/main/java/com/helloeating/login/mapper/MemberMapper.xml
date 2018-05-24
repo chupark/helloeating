@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.helloeating.login.mapper.MemberMapper">
+ 
+    <select id="TESTCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM TEST
+    </select>
+    
+    <insert id="InsertMember">
+    	<selectKey resultType="int" keyProperty="num" order="BEFORE">
+    		SELECT IFNULL(MAX(NUM), 0) + 1 FROM MEMBER
+    	</selectKey> 
+    	INSERT INTO MEMBER 
+    				(NUM, ID, PASSWORD, NICKNAME, JOINDATE, LASTLOGIN) 
+    				VALUES (#{num}, #{member_id}, #{member_nickname}, #{member_password}, NOW(), NOW())
+    </insert>
+</mapper>
